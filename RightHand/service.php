@@ -5,8 +5,11 @@
 $username = 'adminR4Ltur9';
 $password = 'zjQeA1RT-wYr';
 
+define('DB_HOST', getenv('OPENSHIFT_MYSQL_DB_HOST'));
+define('DB_PORT', getenv('OPENSHIFT_MYSQL_DB_PORT'));
+
 // Create database connection using PHP Data Object (PDO)
-$db = new PDO("mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT;dbname=php", $username, $password);
+$db = new PDO("mysql://".DB_HOST.":".DB_PORT.";dbname=php", $username, $password);
 
 var_dump($db);
 
