@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RightHand</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.81/jsrender.min.js"></script>
+    <style>
+    #map {
+        width: 100%;
+        height: 350px;
+    }
+    
+    body {
+        font-family: "Lato", sans-serif
+    }
+    
+    .img-circle {
+        border-radius: 50%;
+    }
+    
+    .headerImage {
+        width: 100%;
+        height: 400px;
+        background-image: url('images/HeaderImage0.jpg');
+        background-size: cover;
+    }
+    
+    .aboutImage {
+        width: 100%;
+        height: 400px;
+        background-image: url('images/HeaderImage1.jpg');
+        background-size: cover;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="w3-top">
+        <ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+            <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
+                <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            </li>
+            <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">HOME</a></li>
+            <li class="w3-hide-small"><a href="#section_services" class="w3-padding-large">SERVICES</a></li>
+            <li class="w3-hide-small"><a href="#section_contact" class=" w3-padding-large">CONTACT</a></li>
+            <li class="w3-hide-small"><a href="#section_about" class="w3-padding-large">ABOUT</a></li>
+            <li class="w3-hide-small w3-right">
+                <img src="images/RightHandLogo.png" alt="Norway" style="width:60%;padding-top:5px;" class="w3-hover-opacity">
+            </li>
+        </ul>
+    </div>
+    <!-- Page content -->
+    <div style="margin-top:46px">
+        <div class="headerImage">
+            <!-- <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+              <h1>Right Hand</h1>
+                <p><b>Help is on the way !!</b></p> 
+            </div>-->
+        </div>
+    </div>
+    <div class="w3-row-padding w3-center w3-margin-top" id="section_services">
+        <div class="w3-third">
+            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+                <img src="images/home cleaning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
+                <p><b>Home Cleaning</b></p>
+                <p>Let us make your home clean and sparkle.</p>
+                <button class="w3-btn w3-margin-bottom" onclick="load('Home Cleaning')">Book</button>
+            </div>
+        </div>
+        <div class="w3-third">
+            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+                <img src="images/elearning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
+                <p><b>E-Learning</b></p>
+                <p>Let us get your pace to technology.</p>
+                <button class="w3-btn w3-margin-bottom" onclick="load('Teacher')">Book</button>
+            </div>
+        </div>
+        <div class="w3-third">
+            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+                <img src="images/grocery.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
+                <p><b>Grocery</b></p>
+                <p>Let us stock your home with supplies.</p>
+                <button class="w3-btn w3-margin-bottom" onclick="load('Grocery')">Book</button>
+            </div>
+        </div>
+    </div>
+    <script id="personTmpl" type="text/x-jsrender">
+        <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+            <h5>Found the best match....</h5>
+            <img src="{{:Image}}" class="img-circle" style="height:100px;" />
+            <h4>{{:Name}}</h4> {{:Address}}
+            <br> {{:Phone}}
+            <br>
+            <div class="w3-text-green">
+                <b>Available in 15 minutes</b>
+            </div><br>
+            <button class="w3-btn">Confirm</button>
+            <br>
+        </div>
+    </script>
+    <!-- Map Section-->
+    <div class="w3-row-padding w3-center w3-margin-top" id="section_map">
+        <div class="w3-half">
+            <div class="w3-card-2" style="min-height:350px">
+                <!-- Add Google Maps -->
+                <div id="map"></div>
+                <script>
+                var map = null;
+
+                function initMap() {
+                    var myLatLng = {
+                        lat: 40.718992,
+                        lng: -74.039449
+                    };
+
+                    var mapDiv = document.getElementById('map');
+                    map = new google.maps.Map(mapDiv, {
+                        zoom: 15,
+                        center: myLatLng
+                    });
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: 'Sowmya'
+                    });
+
+                    setMarkers(map, []);
+
+                }
+
+
+                function load(mapType) {
+
+                    var myTemplate = $.templates("#personTmpl");
+
+
+                    $.get("service.php?serviceType=" + mapType, function(data) {
+                        var people = JSON.parse(data);
+                        var html = myTemplate.render(people[0]);
+
+                        $("#section_booking").html(html);
+                        setMarkers(map, people);
+                    });
+
+
+                }
+
+                var allmarkers = [];
+
+                function setMarkers(map, svcs) {
+                    for (var i = 0; i < allmarkers.length; i++) {
+                        allmarkers[i].setMap(null);
+                    }
+                    // Adds markers to the map.
+
+                    // Marker sizes are expressed as a Size of X,Y where the origin of the image
+                    // (0,0) is located in the top left of the image.
+
+                    // Origins, anchor positions and coordinates of the marker increase in the X
+                    // direction to the right and in the Y direction down.
+                    var image = {
+                        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                        // This marker is 20 pixels wide by 32 pixels high.
+                        size: new google.maps.Size(20, 32),
+                        // The origin for this image is (0, 0).
+                        origin: new google.maps.Point(0, 0),
+                        // The anchor for this image is the base of the flagpole at (0, 32).
+                        anchor: new google.maps.Point(0, 32)
+                    };
+                    // Shapes define the clickable region of the icon. The type defines an HTML
+                    // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+                    // The final coordinate closes the poly by connecting to the first coordinate.
+                    var shape = {
+                        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                        type: 'poly'
+                    };
+                    for (var i = 0; i < svcs.length; i++) {
+                        var service = svcs[i];
+
+                        var marker = new google.maps.Marker({
+                            position: {
+                                lat: parseFloat(service.Lat),
+                                lng: parseFloat(service.Lng)
+                            },
+                            map: map,
+                            icon: image,
+                            shape: shape,
+                            title: service.Profession,
+                            zIndex: parseInt(service.ID)
+                        });
+                        allmarkers.push(marker);
+                    }
+                }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrodpGy3XozP5yVluQt1DEuOlAZi7Iqn8&callback=initMap">
+                </script>
+            </div>
+        </div>
+        <!-- Booking Section-->
+        <div class="w3-half" id="section_booking">
+            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+                <img src="images/AnnSmith.jpg" alt="Smith" style="width:60%" class="w3-hover-opacity">
+                <p><b>Hello, Mrs. Smith.</b></p>
+                <p>Please click on Book button of the required service.</p>
+                <p><b>Need Help ?? Call 201 151 1515<br> </b></p>
+            </div>
+        </div>
+    </div>
+    <!-- The Contact Section -->
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="section_contact">
+        <h2 class="w3-wide w3-center">CONTACT</h2>
+        <p class="w3-opacity w3-center"><i>Query? Drop a note!</i></p>
+        <div class="w3-col m6 w3-large w3-margin-bottom">
+            <i class="fa fa-map-marker" style="width:30px"></i>Jersey City, NJ
+            <br>
+            <i class="fa fa-phone" style="width:30px"></i> Phone: +1(201)1511515
+            <br>
+            <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@righthand.com
+            <br>
+        </div>
+        <div class="w3-col m6">
+            <form id="form" class="contact-form" action="contact.php" method="post" id="form">
+                <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+                    <div class="w3-half">
+                        <input class="w3-input w3-border" type="text" placeholder="Name" name="cf_name">
+                    </div>
+                    <div class="w3-half">
+                        <input class="w3-input w3-border" type="text" placeholder="Email" name="cf_email">
+                    </div>
+                </div>
+                <input class="w3-input w3-border" type="text" placeholder="Comment" name="cf_message">
+                <button class="w3-btn w3-section w3-right" onclick="document.getElementById('form').submit()">SEND</button>
+            </form>
+        </div>
+    </div>
+    <!-- The About Section -->
+    <div class="aboutImage" style="position:relative;" id="section_about">
+        <div style="width: 80%;padding: 40px;top: 280px;position: absolute;background-color: white;left:10%;">
+            <h2 class="w3-wide w3-center">About Us</h2>
+            <div class="clear"></div>
+            <p class="w3-opacity">Our elderly loved ones feel difficulties in many of their daily routines activities. For instance, cooking, cleaning, medical checkups, driving, hospital visits, grooming assistance, medicine refills, utilities and bill payments, grocery shopping, computer education or be just social need.
+                <br> With the help of technology, these issues can be addressed and help can be provided on a click of a button. Our 'Right Hand' website will provide all these services and more at a single place, just with a click of a button without waiting for someone to be available to assist in booking services. </p>
+        </div>
+    </div>
+</body>
+
+</html>
+<!--References 
+Header image (2016). Retrieved from http://blogs.cdc.gov/publichealthmatters/files/2012/09/ElderlyEmergency_Banner.jpg
+
+About Us Image (2016). Retrieved from https://www.regions.com/~/media/Images/Insights/Pano-Images/Personal/P-LS-EN-
+
+Campose, Y. (2016). Mop Image.  Retrieved  from https://thenounproject.com/term/cleaning/19395/
+
+Creative Stall. (2016). Grocery Basket. Retrieved  from  https://thenounproject.com/term/grocery-shopping/177723/
+
+Icons8(2016). E-Learning Icon. Retrieved from https://maxcdn.icons8.com/Share/icon/Science//e_learning1600.png
+-->
