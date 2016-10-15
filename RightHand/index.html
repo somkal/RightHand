@@ -19,8 +19,15 @@
     body {
         font-family: "Lato", sans-serif;
     }
-
-    h1,h2,h3,h4,h5,h6,b,strong {
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    b,
+    strong {
         font-family: "Bitter", sans-serif !important;
     }
     
@@ -56,7 +63,7 @@
             <li class="w3-hide-small"><a href="#section_contact" class=" w3-padding-large">CONTACT</a></li>
             <li class="w3-hide-small"><a href="#section_about" class="w3-padding-large">ABOUT</a></li>
             <li class="w3-hide-small w3-right">
-                <img src="images/RightHandLogo.png" alt="Norway" style="width:60%;padding-top:5px;" class="w3-hover-opacity">
+                <img src="images/RightHandLogo.png" alt="Norway" style="width:60%;padding-top:5px;">
             </li>
         </ul>
     </div>
@@ -71,7 +78,7 @@
     </div>
     <div class="w3-row-padding w3-center w3-margin-top" id="section_services">
         <div class="w3-third">
-            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+            <div class="w3-card-2 w3-padding-top" onclick="load('Home Cleaning')" style="min-height:350px">
                 <img src="images/home cleaning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>Home Cleaning</b></p>
                 <p>Let us make your home clean and sparkle.</p>
@@ -79,7 +86,7 @@
             </div>
         </div>
         <div class="w3-third">
-            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+            <div class="w3-card-2 w3-padding-top" onclick="load('Teacher')" style="min-height:350px">
                 <img src="images/elearning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>E-Learning</b></p>
                 <p>Let us get your pace to technology.</p>
@@ -87,7 +94,7 @@
             </div>
         </div>
         <div class="w3-third">
-            <div class="w3-card-2 w3-padding-top" style="min-height:350px">
+            <div class="w3-card-2 w3-padding-top" onclick="load('Grocery')" style="min-height:350px">
                 <img src="images/grocery.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>Grocery</b></p>
                 <p>Let us stock your home with supplies.</p>
@@ -104,8 +111,9 @@
             <br>
             <div class="w3-text-green">
                 <b>Available in 15 minutes</b>
-            </div><br>
-            <button class="w3-btn">Confirm</button>
+            </div>
+            <br>
+            <button class="w3-btn" onclick="$('#section_confirm').show()">Confirm</button>
             <br>
         </div>
     </script>
@@ -144,7 +152,7 @@
 
                     $.get("service.php?serviceType=" + mapType, function(data) {
                         var people = data;
-                        var randNum = (parseInt(Math.random()*100))%2;
+                        var randNum = (parseInt(Math.random() * 100)) % 2;
                         var html = myTemplate.render(people[randNum]);
 
                         $("#section_booking").html(html);
@@ -208,9 +216,16 @@
             <div class="w3-card-2 w3-padding-top" style="min-height:350px">
                 <img src="images/AnnSmith.jpg" alt="Smith" style="width:60%" class="w3-hover-opacity">
                 <p><b>Hello, Mrs. Smith.</b></p>
-                <p>Please click on Book button of the required service.</p>
+                <p>Please choose the required service.</p>
                 <p><b>Need Help ?? Call 201 151 1515<br> </b></p>
             </div>
+        </div>
+    </div>
+    <!-- Confirmation Section -->
+    <div class="w3-container w3-padding-64 w3-black w3-card-2" id="section_confirm" style="display:none">
+        <h2 class="w3-wide w3-center w3-text-green"><i class="fa fa-check-circle w3-xxxlarge"></i>&nbsp;Request Confirmed</h2>
+        <h4 class="w3-center">Thank you for choosing </h4>
+        <div class="w3-center"> <img src="images/RightHandLogo.png">
         </div>
     </div>
     <!-- The Contact Section -->
@@ -247,6 +262,11 @@
             <div class="clear"></div>
             <p class="w3-opacity">Our elderly loved ones feel difficulties in many of their daily routines activities. For instance, cooking, cleaning, medical checkups, driving, hospital visits, grooming assistance, medicine refills, utilities and bill payments, grocery shopping, computer education or be just social need.
                 <br> With the help of technology, these issues can be addressed and help can be provided on a click of a button. Our 'Right Hand' website will provide all these services and more at a single place, just with a click of a button without waiting for someone to be available to assist in booking services. </p>
+        </div>
+    </div>
+    <!-- Footer Section -->
+    <div class="w3-container w3-padding-16 w3-black w3-card-2" id="section_footer" style="margin-top: 150px">
+        <div class="w3-center"> &copy; 2016 &nbsp; All rights reserved &nbsp; <img src="images/RightHandLogo.png" style="width:80px;padding-top:5px;">&trade; &nbsp; | &nbsp; <span class="w3-opacity">Dedicated to all Parents</span>
         </div>
     </div>
 </body>
