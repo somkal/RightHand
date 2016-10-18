@@ -82,7 +82,7 @@
                 <img src="images/home cleaning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>Home Cleaning</b></p>
                 <p>Let us make your home clean and sparkle.</p>
-                <button class="w3-btn w3-margin-bottom" onclick="load('Home Cleaning')">Book</button>
+                <button class="w3-btn w3-margin-bottom">Book</button>
             </div>
         </div>
         <div class="w3-third">
@@ -90,7 +90,7 @@
                 <img src="images/elearning.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>E-Learning</b></p>
                 <p>Let us get your pace to technology.</p>
-                <button class="w3-btn w3-margin-bottom" onclick="load('Teacher')">Book</button>
+                <button class="w3-btn w3-margin-bottom">Book</button>
             </div>
         </div>
         <div class="w3-third">
@@ -98,7 +98,7 @@
                 <img src="images/grocery.png" alt="Norway" style="width:45%" class="w3-hover-opacity">
                 <p><b>Grocery</b></p>
                 <p>Let us stock your home with supplies.</p>
-                <button class="w3-btn w3-margin-bottom" onclick="load('Grocery')">Book</button>
+                <button class="w3-btn w3-margin-bottom">Book</button>
             </div>
         </div>
     </div>
@@ -148,6 +148,7 @@
 
 
                 function load(mapType) {
+                    $("#section_booking").html('<div class="w3-padding-48"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> <br/> Finding...</div>');
                     var myTemplate = $.templates("#personTmpl");
 
                     $.get("service.php?serviceType=" + mapType, function(data) {
@@ -222,7 +223,7 @@
         </div>
     </div>
     <!-- Confirmation Section -->
-    <div class="w3-container w3-padding-64 w3-black w3-card-2" id="section_confirm" style="display:none">
+    <div class="w3-container w3-padding-64 w3-black w3-card-2 w3-animate-zoom" id="section_confirm" style="display:none">
         <h2 class="w3-wide w3-center w3-text-green"><i class="fa fa-check-circle w3-xxxlarge"></i>&nbsp;Request Confirmed</h2>
         <h4 class="w3-center">Thank you for choosing </h4>
         <div class="w3-center"> <img src="images/RightHandLogo.png">
@@ -256,16 +257,18 @@
         </div>
     </div>
     <!-- The About Section -->
-    <div class="aboutImage" style="position:relative;" id="section_about">
-        <div style="width: 80%;padding: 40px;top: 280px;position: absolute;background-color: white;left:10%;">
+    <div id="section_about">
+        <div class="aboutImage"></div>
+        <div style="background-color: white; padding:20px 40px; margin-top:-150px; width:80%; margin-left:10%;">
             <h2 class="w3-wide w3-center">About Us</h2>
             <div class="clear"></div>
             <p class="w3-opacity">Our elderly loved ones feel difficulties in many of their daily routines activities. For instance, cooking, cleaning, medical checkups, driving, hospital visits, grooming assistance, medicine refills, utilities and bill payments, grocery shopping, computer education or be just social need.
                 <br> With the help of technology, these issues can be addressed and help can be provided on a click of a button. Our 'Right Hand' website will provide all these services and more at a single place, just with a click of a button without waiting for someone to be available to assist in booking services. </p>
+            <div class="clear"></div>
         </div>
     </div>
     <!-- Footer Section -->
-    <div class="w3-container w3-padding-16 w3-black w3-card-2" id="section_footer" style="margin-top: 150px">
+    <div class="w3-container w3-padding-16 w3-black w3-card-2" id="section_footer" style="">
         <div class="w3-center"> &copy; 2016 &nbsp; All rights reserved &nbsp; <img src="images/RightHandLogo.png" style="width:80px;padding-top:5px;">&trade; &nbsp; | &nbsp; <span class="w3-opacity">Dedicated to all Parents</span>
         </div>
     </div>

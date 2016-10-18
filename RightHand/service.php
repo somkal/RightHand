@@ -13,13 +13,15 @@ if(!DB_HOST){
 	$dbhost = 'localhost';
 	$dbuser = 'root';
 	$dbpass = 'root';
-	$dbname = 'RightHand';	
+	$dbname = 'righthand';	
 }else{
 	$dbhost = DB_HOST;
 	$dbuser = DB_USER;
 	$dbpass = DB_PASS;
 	$dbname = 'php';
 }
+
+sleep(rand(2,4));
 
 // Create database connection without using PHP Data Object (PDO)
 $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
@@ -34,7 +36,10 @@ $stmt = $db->query('SELECT * from '.$table." where profession='".$serviceType."'
 // Close connection to database
 $db = NULL;
 header('Content-Type: application/json');
-$results = $stmt->fetch_all(MYSQLI_ASSOC);
+$results = array();
+while($row=$stmt->fetch_assoc()){
+	$results[] = $row;
+}
 $json = json_encode($results);
 echo $json;
 exit();
