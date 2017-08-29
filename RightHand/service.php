@@ -4,10 +4,10 @@
 // $username = 'adminR4Ltur9';
 // $password = 'zjQeA1RT-wYr';
 
-define('DB_HOST', getenv('OPENSHIFT_MYSQL_DB_HOST'));
-define('DB_PORT', getenv('OPENSHIFT_MYSQL_DB_PORT'));
-define('DB_USER', getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
-define('DB_PASS', getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
+define('DB_HOST', getenv('MYSQL_SERVICE_HOST'));
+define('DB_PORT', getenv('MYSQL_SERVICE_PORT'));
+define('DB_USER', getenv('MYSQL_USER'));
+define('DB_PASS', getenv('MYSQL_PASSWORD'));
 
 if(!DB_HOST){
 	$dbhost = 'localhost';
